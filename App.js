@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Platform } from 'react-native';
+import { StyleSheet, View, Platform } from 'react-native';
 
-import Footer from './components/Footer';
 import Header from './components/Header';
+import Body from './components/Body';
+import Footer from './components/Footer';
 
 export default class App extends Component {
   state = {
@@ -30,16 +31,16 @@ export default class App extends Component {
   }
 
   render() {
+    const { todoText, items } = this.state;
+
     return (
       <View style={styles.container}>
         <Header
-          value={this.state.todoText}
+          value={todoText}
           onChange={this.handleValueChange}
           onAddItem={this.handleAddItem}
         />
-        <View style={styles.content}>
-          <Text>Body</Text>
-        </View>
+        <Body items={items} />
         <Footer />
       </View>
     );
@@ -55,7 +56,4 @@ const styles = StyleSheet.create({
       ios: { paddingTop: 30 },
     }),
   },
-  content: {
-    flex: 1,
-  }
 });

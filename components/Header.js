@@ -1,15 +1,14 @@
 import React from 'react';
 import { StyleSheet, View, Text, TextInput } from 'react-native';
 
-const Header = () => (
-  const { value, onChange, onAddItem } = this.props;
+const Header = ({ value, onChange, onAddItem }) => (
   <View style={styles.header}>
     <TextInput
       style={styles.input}
       placeholder="What needs to be done?"
       blurOnSubmit={false}
       onChangeText={onChange}
-      onSubmitEnding={onAddItem}
+      onSubmitEditing={onAddItem}
       returnKeyType="done"
       value={value}
     />
