@@ -1,23 +1,35 @@
 import React from 'react';
-import { StyleSheet, FlatList, Text } from 'react-native';
+import { StyleSheet, ListView, Keyboard, Text, View } from 'react-native';
 
-const Body = ({ items }) => {
-  const renderListItem = ({ item }) => (
-    <Text key={item.key}>{item.text}</Text>
+import Row from './Row';
+
+const Body = ({ dataSource }) => {
+  const renderRow = row => <Row {...row} />;
+
+  const renderSeparator = (sectionId, rowId) => (
+    <View key={rowId} style={styles.separator} />
   );
 
   return (
-    <FlatList
-      style={styles.body}
-      data={items}
-      renderItem={renderListItem}
+    <ListView
+      style={styles.list}
+      enableEmptySections
+      dataSource={dataSource}
+      onScroll={() => Keyboard.dismiss()}
+      renderRow={renderRow}
+      renderSeparator={renderSeparator}
     />
   );
-};
+}
 
 const styles = StyleSheet.create({
-  body: {
+  list: {
     flex: 1,
+    backgroundColor: '#FFF'
+  },
+  separator: {
+    borderWidth: 1,
+    borderColor: "#F5F5F5"
   }
 });
 
