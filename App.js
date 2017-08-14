@@ -1,18 +1,50 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, View, Text, Platform } from 'react-native';
 
 import Footer from './components/Footer';
 import Header from './components/Header';
 
-const App = () => (
-  <View style={styles.container}>
-    <Header />
-    <View style={styles.content}>
-      <Text>Body</Text>
-    </View>
-    <Footer />
-  </View>
-);
+export default class App extends Component {
+  state = {
+    todoText: '',
+    items: [],
+  };
+
+  handleValueChange = todoText => this.setState({ todoText });
+
+  handleAddItem = () => {
+    const { todoText, items } = this.state;
+
+    if (!todoText) return;
+
+    const newItems = [
+      ...this.state.items,
+      {
+        key: Date.now(),
+        text: todoText,
+        complete: false,
+      }
+    ]
+
+    this.setState({ items: newItems, todoText: '' });
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <Header
+          value={this.state.todoText}
+          onChange={this.handleValueChange}
+          onAddItem={this.handleAddItem}
+        />
+        <View style={styles.content}>
+          <Text>Body</Text>
+        </View>
+        <Footer />
+      </View>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -27,5 +59,3 @@ const styles = StyleSheet.create({
     flex: 1,
   }
 });
-
-export default App;
